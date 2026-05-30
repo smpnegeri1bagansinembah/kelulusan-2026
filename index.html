@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+
+<title>Pengumuman Kelulusan</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+
+<div class="row justify-content-center">
+
+<div class="col-md-6">
+
+<div class="card shadow">
+
+<div class="card-body text-center">
+
+<h2>PENGUMUMAN KELULUSAN</h2>
+
+<h5>SMP NEGERI 1 BAGAN SINEMBAH</h5>
+
+<hr>
+
+<input
+id="nisn"
+type="text"
+class="form-control mb-3"
+placeholder="Masukkan NISN">
+
+<button
+onclick="cekKelulusan()"
+class="btn btn-primary w-100">
+
+CEK KELULUSAN
+
+</button>
+
+<div id="hasil" class="mt-4"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const API_URL =
+"https://script.google.com/macros/s/AKfycbyX4P_9FpHzpBzY8iWVhuAwGWww6k-mHWE3GULuAWof82cZdAFL3JH8jqjqjdfR8ThZ/exec";
+
+function cekKelulusan(){
+
+let nisn =
+document.getElementById("nisn").value;
+
+fetch(API_URL + "?nisn=" + nisn)
+
+.then(response => response.json())
+
+.then(data => {
+
+if(data.status=="success"){
+
+document.getElementById("hasil").innerHTML=
+
+`
+<div class="alert alert-success">
+
+<h4>${data.nama}</h4>
+
+<p>NISN : ${data.nisn}</p>
+
+<p>Kelas : ${data.kelas}</p>
+
+<h2>${data.kelulusan}</h2>
+
+</div>
+`;
+
+}else{
+
+document.getElementById("hasil").innerHTML=
+
+`
+<div class="alert alert-danger">
+
+NISN Tidak Ditemukan
+
+</div>
+`;
+
+}
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
